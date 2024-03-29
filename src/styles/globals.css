@@ -11,8 +11,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    /* Update the dark theme background colors to your new shade */
+    --background-start-rgb: 250, 249, 246; /* #FAF9F6 converted to RGB */
+    --background-end-rgb: 250, 249, 246; /* Ensure consistency across the gradient */
   }
 }
 
