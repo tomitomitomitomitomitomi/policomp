@@ -1,15 +1,16 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 interface CompassBackgroundProps {
   children: React.ReactNode;
 }
 
-export const CompassBackground: React.FC<CompassBackgroundProps> = ({
-  children,
-}) => {
+export const CompassBackground = forwardRef<
+  HTMLDivElement,
+  CompassBackgroundProps
+>((props, ref) => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="relative flex w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] mx-auto">
+    <div ref={ref} className="flex items-center justify-center min-h-screen">
+      <div className="relative w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] mx-auto">
         <div
           className="absolute w-1/2 h-1/2 top-0 left-0"
           style={{ backgroundColor: "#fea2a3", borderTopLeftRadius: "10px" }}
@@ -28,10 +29,11 @@ export const CompassBackground: React.FC<CompassBackgroundProps> = ({
             backgroundColor: "#ffe699",
             borderBottomRightRadius: "10px",
           }}
-        >
-          {children}
-        </div>
+        ></div>
+        {props.children}
       </div>
     </div>
   );
-};
+});
+
+CompassBackground.displayName = "CompassBackground";
