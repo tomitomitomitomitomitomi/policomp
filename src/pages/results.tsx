@@ -11,9 +11,9 @@ export default function Results() {
     };
 
     fetchAverage();
-    const intervalId = setInterval(fetchAverage, 5000); // Poll every 5 seconds
+    const intervalId = setInterval(fetchAverage, 5000);
 
-    return () => clearInterval(intervalId); // Cleanup on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
