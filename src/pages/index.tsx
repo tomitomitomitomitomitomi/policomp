@@ -10,10 +10,9 @@ export default function Home() {
   useEffect(() => {
     if (compassRef.current) {
       const compass = compassRef.current.getBoundingClientRect();
-      const divSize = 64;
-      const centerX = (compass.width - divSize) / 2;
-      const centerY = (compass.width - divSize) / 2;
-      setDefaultPosition({ x: centerX - 18, y: centerY - 18 });
+      const divPadding = 40; //p-5 = 20px por lado
+      const center = (compass.width - divPadding * 2) / 2;
+      setDefaultPosition({ x: center, y: center });
       setIsPositionCalculated(true);
     }
   }, []);
@@ -22,7 +21,7 @@ export default function Home() {
     <CompassBackground ref={compassRef}>
       {isPositionCalculated && (
         <Draggable bounds="parent" defaultPosition={defaultPosition}>
-          <div className="text-xs cursor-pointer p-2 bg-black rounded shadow w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 flex items-center justify-center text-white">
+          <div className="text-xs cursor-pointer p-5 bg-black rounded shadow w-0 h-0 flex items-center justify-center text-white">
             {`x_1: ${defaultPosition.x}, y_1: ${defaultPosition.y}`}
           </div>
         </Draggable>

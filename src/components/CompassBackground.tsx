@@ -9,8 +9,11 @@ export const CompassBackground = forwardRef<
   CompassBackgroundProps
 >((props, ref) => {
   return (
-    <div ref={ref} className="flex items-center justify-center min-h-screen">
-      <div className="relative w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] mx-auto">
+    <div className="flex items-center justify-center min-h-screen">
+      <div
+        ref={ref}
+        className="relative w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] mx-auto"
+      >
         <div
           className="absolute w-1/2 h-1/2 top-0 left-0"
           style={{ backgroundColor: "#fea2a3", borderTopLeftRadius: "10px" }}
