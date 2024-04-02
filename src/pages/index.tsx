@@ -11,7 +11,7 @@ export default function Home() {
     if (compassRef.current) {
       const compass = compassRef.current.getBoundingClientRect();
       const divPadding = 40; //p-5 = 20px por lado
-      const center = (compass.width - divPadding * 2) / 2;
+      const center = (compass.width - divPadding) / 2;
       setDefaultPosition({ x: center, y: center });
       setIsPositionCalculated(true);
     }
