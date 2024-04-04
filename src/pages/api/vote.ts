@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-let votes: any[]= [];
+let votes: {x: number, y: number}[]= [];
 
 export default function handler(
     req: NextApiRequest,
