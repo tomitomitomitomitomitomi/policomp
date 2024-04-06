@@ -18,19 +18,32 @@ export default function Home() {
       setPosition({ x: center, y: center });
       centerRef.current = { x: center, y: center };
       setIsPositionCalculated(true);
+      const savedTimeLeft = localStorage.getItem("timeLeft");
+      const savedEndTime = localStorage.getItem("endTime");
+
+      if (savedTimeLeft && savedEndTime) {
+        const endTime = parseInt(savedEndTime, 10);
+        const currentTime = Date.now();
+        const remainingTime = Math.ceil((endTime - currentTime) / 1000);
+
+        if (remainingTime > 0) {
+          setTimeLeft(remainingTime);
+          setDragEnabled(false);
+        }
+      }
     }
   }, []);
 
   useEffect(() => {
-    let intervalId: any;
     if (timeLeft > 0) {
-      intervalId = setInterval(() => {
-        setTimeLeft((timeLeft) => timeLeft - 1);
+      const intervalId = setInterval(() => {
+        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
       }, 1000);
+
+      return () => clearInterval(intervalId);
     } else {
       setDragEnabled(true);
     }
-    return () => clearInterval(intervalId);
   }, [timeLeft]);
 
   const handleDragStart = (e: any, data: any) => {
@@ -40,8 +53,13 @@ export default function Home() {
   };
 
   const handleDragStop = (e: any, data: any) => {
+    const countdownDuration = 15;
     setDragEnabled(false);
-    setTimeLeft(60);
+    setTimeLeft(countdownDuration);
+
+    const endTime = Date.now() + countdownDuration * 1000;
+    localStorage.setItem("timeLeft", countdownDuration.toString());
+    localStorage.setItem("endTime", endTime.toString());
   };
 
   return (
