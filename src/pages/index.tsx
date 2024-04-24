@@ -11,6 +11,20 @@ export default function Home() {
   const [timeLeft, setTimeLeft] = useState(0);
 
   useEffect(() => {
+    const savedTimeLeft = localStorage.getItem("timeLeft");
+    const savedEndTime = localStorage.getItem("endTime");
+    const currentTime = Date.now();
+
+    if (savedTimeLeft && savedEndTime) {
+      const endTime = parseInt(savedEndTime, 10);
+      const remainingTime = Math.ceil((endTime - currentTime) / 1000);
+
+      if (remainingTime > 0) {
+        setTimeLeft(remainingTime);
+        setDragEnabled(false);
+      }
+    }
+
     if (compassRef.current) {
       const compass = compassRef.current.getBoundingClientRect();
       const divPadding = 40; // Assuming p-5 = 20px padding on each side
@@ -18,32 +32,32 @@ export default function Home() {
       setPosition({ x: center, y: center });
       centerRef.current = { x: center, y: center };
       setIsPositionCalculated(true);
-      const savedTimeLeft = localStorage.getItem("timeLeft");
-      const savedEndTime = localStorage.getItem("endTime");
-
-      if (savedTimeLeft && savedEndTime) {
-        const endTime = parseInt(savedEndTime, 10);
-        const currentTime = Date.now();
-        const remainingTime = Math.ceil((endTime - currentTime) / 1000);
-
-        if (remainingTime > 0) {
-          setTimeLeft(remainingTime);
-          setDragEnabled(false);
-        }
-      }
     }
   }, []);
 
   useEffect(() => {
+    let intervalId: NodeJS.Timeout;
     if (timeLeft > 0) {
-      const intervalId = setInterval(() => {
-        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+      intervalId = setInterval(() => {
+        setTimeLeft((prevTimeLeft) => {
+          if (prevTimeLeft > 1) {
+            return prevTimeLeft - 1;
+          } else {
+            clearInterval(intervalId);
+            setDragEnabled(true);
+            localStorage.removeItem("timeLeft");
+            localStorage.removeItem("endTime");
+            return 0;
+          }
+        });
       }, 1000);
-
-      return () => clearInterval(intervalId);
-    } else {
-      setDragEnabled(true);
     }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
   }, [timeLeft]);
 
   const handleDragStart = (e: any, data: any) => {

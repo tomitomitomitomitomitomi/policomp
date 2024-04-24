@@ -25,4 +25,4 @@ The app is composed of 2 views:
 
 ## Realtime Updates
 
-- The idea is to have the `results` page update in "realtime". For practical purposes, the page polls every 5 seconds while you speak.
+- The idea is to have the `results` page update in "realtime". For practical purposes, the page polls every 5 seconds.
