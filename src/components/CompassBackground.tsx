@@ -9,7 +9,7 @@ export const CompassBackground = forwardRef<
   CompassBackgroundProps
 >((props, ref) => {
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen overflow-hidden">
       <div
         ref={ref}
         className="relative w-[90vw] h-[90vw] max-w-[800px] max-h-[800px] mx-auto"

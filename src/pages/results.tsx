@@ -8,9 +8,8 @@ export default function Results() {
 
   useEffect(() => {
     const fetchAverage = async () => {
-      const response = await fetch("/api/vote");
+      const response = await fetch("/api/votes");
       const data = await response.json();
-      console.log(data);
       setAverage(data);
     };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Draggable from "react-draggable";
 import { CompassBackground } from "@/components/CompassBackground";
+import { sendVote } from "@/utils";
 
 export default function Home() {
   const compassRef = useRef<HTMLDivElement | null>(null);
@@ -67,6 +68,7 @@ export default function Home() {
   };
 
   const handleDragStop = (e: any, data: any) => {
+    const { x, y } = data;
     const countdownDuration = 15;
     setDragEnabled(false);
     setTimeLeft(countdownDuration);
@@ -74,6 +76,8 @@ export default function Home() {
     const endTime = Date.now() + countdownDuration * 1000;
     localStorage.setItem("timeLeft", countdownDuration.toString());
     localStorage.setItem("endTime", endTime.toString());
+
+    sendVote({ x, y });
   };
 
   return (
