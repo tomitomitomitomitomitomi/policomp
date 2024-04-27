@@ -70,6 +70,8 @@ export default function Home() {
   const handleDragStop = (e: any, data: any) => {
     const { x, y } = data;
     const countdownDuration = 15;
+    const compassWidth = compassRef.current!.getBoundingClientRect().width - 40;
+
     setDragEnabled(false);
     setTimeLeft(countdownDuration);
 
@@ -77,7 +79,9 @@ export default function Home() {
     localStorage.setItem("timeLeft", countdownDuration.toString());
     localStorage.setItem("endTime", endTime.toString());
 
-    sendVote({ x, y });
+    const normalizedVote = { x: x / compassWidth, y: y / compassWidth };
+
+    sendVote(normalizedVote);
   };
 
   return (
