@@ -24,7 +24,11 @@ export default function handler(
       average.x /= votes.length;
       average.y /= votes.length;
     }
+    const response = {
+      average: average,
+      clean: votes.length === 0 
+  };
 
-    return res.status(200).json(average);
+    return res.status(200).json(response);
   } 
 }
