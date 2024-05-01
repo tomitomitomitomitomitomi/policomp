@@ -25,7 +25,7 @@ export default function handler(
       average.y /= votes.length;
     }
     const response = {
-      average: average,
+      average,
       clean: votes.length === 0 
   };
 
